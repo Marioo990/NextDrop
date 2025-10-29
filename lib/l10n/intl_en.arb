@@ -1,0 +1,68 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "NextDrop",
+  "homeTitle": "My Events",
+  "upcomingTitle": "Upcoming",
+  "currentTitle": "Currently Airing",
+  "archivedTitle": "Archive",
+  "settingsTitle": "Settings",
+
+  "addEvent": "Add Event",
+  "editEvent": "Edit Event",
+  "deleteEvent": "Delete Event",
+  "archiveEvent": "Archive",
+
+  "eventTitle": "Title",
+  "eventDescription": "Description",
+  "eventPlatform": "Platform",
+  "eventCategory": "Category",
+  "eventType": "Type",
+
+  "series": "Series",
+  "anime": "Anime",
+  "podcast": "Podcast",
+  "tvShow": "TV Show",
+  "movie": "Movie",
+
+  "upcoming": "Upcoming",
+  "ongoing": "Ongoing",
+  "archived": "Finished",
+
+  "notifications": "Notifications",
+  "notificationsEnabled": "Notifications enabled",
+  "notificationsDisabled": "Notifications disabled",
+
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit",
+
+  "confirmDelete": "Are you sure you want to delete this event?",
+  "eventDeleted": "Event has been deleted",
+  "eventSaved": "Event has been saved",
+
+  "language": "Language",
+  "languagePolish": "Polski",
+  "languageEnglish": "English",
+
+  "episodes": "Episodes",
+  "episode": "Episode",
+  "episodeNumber": "Episode {number}",
+
+  "timeIn": "in {time}",
+
+  "ratingPrompt": "Rate this event (1-10):",
+  "ratingAdded": "Rating added: {rating}/10",
+  "defaultNotificationTime": "Default notification time",
+  "defaultTimeView": "Default time view",
+  "dataManagement": "Data management",
+  "rebuildAllEpisodes": "Rebuild all episodes",
+  "rebuildDescription": "Delete and regenerate with correct times",
+  "clearDatabase": "Clear entire database",
+  "clearDatabaseDescription": "Delete all events (irreversible)",
+  "about": "About",
+  "version": "Version",
+  "information": "Information",
+  "appDescription": "NextDrop - Track your favorite shows and programs"
+}

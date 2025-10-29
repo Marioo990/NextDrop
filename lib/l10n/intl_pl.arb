@@ -1,0 +1,89 @@
+{
+  "@@locale": "pl",
+
+  "appTitle": "NextDrop",
+  "homeTitle": "Moje wydarzenia",
+  "upcomingTitle": "Przyszłe",
+  "currentTitle": "W trakcie emisji",
+  "archivedTitle": "Archiwum",
+  "settingsTitle": "Ustawienia",
+
+  "addEvent": "Dodaj wydarzenie",
+  "editEvent": "Edytuj wydarzenie",
+  "deleteEvent": "Usuń wydarzenie",
+  "archiveEvent": "Zarchiwizuj",
+
+  "eventTitle": "Tytuł",
+  "eventDescription": "Opis",
+  "eventPlatform": "Platforma",
+  "eventCategory": "Kategoria",
+  "eventType": "Typ",
+
+  "series": "Serial",
+  "anime": "Anime",
+  "podcast": "Podcast",
+  "tvShow": "Program TV",
+  "movie": "Film",
+
+  "upcoming": "Przyszłe",
+  "ongoing": "W trakcie",
+  "archived": "Zakończone",
+
+  "notifications": "Powiadomienia",
+  "notificationsEnabled": "Powiadomienia włączone",
+  "notificationsDisabled": "Powiadomienia wyłączone",
+
+  "save": "Zapisz",
+  "cancel": "Anuluj",
+  "delete": "Usuń",
+  "edit": "Edytuj",
+
+  "confirmDelete": "Czy na pewno chcesz usunąć to wydarzenie?",
+  "eventDeleted": "Wydarzenie zostało usunięte",
+  "eventSaved": "Wydarzenie zostało zapisane",
+
+  "language": "Język",
+  "languagePolish": "Polski",
+  "languageEnglish": "English",
+
+  "episodes": "Odcinki",
+  "episode": "Odcinek",
+  "episodeNumber": "Odcinek {number}",
+  "@episodeNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+
+  "timeIn": "za {time}",
+  "@timeIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+
+  "ratingPrompt": "Oceń wydarzenie (1-10):",
+  "ratingAdded": "Ocena dodana: {rating}/10",
+  "@ratingAdded": {
+    "placeholders": {
+      "rating": {
+        "type": "int"
+      }
+    }
+  },
+  "defaultNotificationTime": "Domyślny czas powiadomienia",
+  "defaultTimeView": "Domyślny przedział czasu",
+  "dataManagement": "Zarządzanie danymi",
+  "rebuildAllEpisodes": "Przebuduj wszystkie odcinki",
+  "rebuildDescription": "Usuń i wygeneruj ponownie z poprawnymi godzinami",
+  "clearDatabase": "Wyczyść całą bazę danych",
+  "clearDatabaseDescription": "Usuń wszystkie wydarzenia (nieodwracalne)",
+  "about": "O aplikacji",
+  "version": "Wersja aplikacji",
+  "information": "Informacje",
+  "appDescription": "NextDrop - Śledź swoje ulubione serie i programy"
+}
