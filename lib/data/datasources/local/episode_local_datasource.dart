@@ -91,13 +91,13 @@ class EpisodeLocalDataSource {
     );
   }
 
-  // ✅ ZMIENIONE: Dodano parametr startTime i używamy go przy tworzeniu odcinków
+  // ✅ POPRAWIONE: Bezpieczna metoda dodawania dni bez problemów ze zmianą czasu
   Future<void> generateEpisodes(
       int eventId,
       DateTime startDate,
       int totalEpisodes,
       int intervalDays,
-      TimeOfDay? startTime, // ✅ NOWY PARAMETR
+      TimeOfDay? startTime,
       ) async {
     if (totalEpisodes <= 0) {
       throw ArgumentError('Liczba odcinków musi być większa od 0');
@@ -112,64 +112,79 @@ class EpisodeLocalDataSource {
     }
 
     await deleteEpisodesByEvent(eventId);
-    debugPrint('Usunięto stare odcinki dla eventu $eventId');
+    debugPrint('🗑️  Usunięto stare odcinki dla eventu $eventId');
 
-    // ✅ ZMIENIONE: Używamy pełnego DateTime z godziną
     final now = DateTime.now();
 
     int successCount = 0;
     int skipCount = 0;
 
+    // ✅ KLUCZOWA ZMIANA: Używamy manipulacji na datach zamiast Duration
     for (int i = 1; i <= totalEpisodes; i++) {
       try {
-        // Dodaj dni do daty startowej
-        final dateOnly = startDate.add(Duration(days: (i - 1) * intervalDays));
+        // Oblicz ile dni dodać
+        final daysToAdd = (i - 1) * intervalDays;
 
-        // ✅ NOWE: Dodaj godzinę z wydarzenia (jeśli jest)
+        // ✅ POPRAWKA: Bezpośrednie dodawanie dni do składowych daty
+        // DateTime automatycznie normalizuje wartości (np. dzień 32 → następny miesiąc)
+        // To zapobiega problemom ze zmianą czasu letni/zimowy!
+        final targetDate = DateTime(
+          startDate.year,
+          startDate.month,
+          startDate.day + daysToAdd, // Dodajemy dni bezpośrednio
+        );
+
+        // Dodaj godzinę z wydarzenia (jeśli jest)
         final airDate = startTime != null
             ? DateTime(
-          dateOnly.year,
-          dateOnly.month,
-          dateOnly.day,
+          targetDate.year,
+          targetDate.month,
+          targetDate.day,
           startTime.hour,
           startTime.minute,
         )
             : DateTime(
-          dateOnly.year,
-          dateOnly.month,
-          dateOnly.day,
+          targetDate.year,
+          targetDate.month,
+          targetDate.day,
           0, // Domyślnie północ
           0,
         );
 
+        // Sprawdź czy nie jest zbyt daleko w przyszłości
         final maxDate = now.add(const Duration(days: 365 * 3));
         if (airDate.isAfter(maxDate)) {
-          debugPrint('Odcinek $i ($airDate) jest zbyt daleko, pomijam');
+          debugPrint('⏩ Odcinek $i ($airDate) jest zbyt daleko, pomijam');
           skipCount++;
           continue;
         }
 
-        // ✅ ZMIENIONE: Status aired tylko jeśli PEŁNA data+godzina jest w przeszłości
+        // Status aired tylko jeśli PEŁNA data+godzina jest w przeszłości
         final episode = EpisodeModel(
           eventId: eventId,
           episodeNumber: i,
-          airDate: airDate, // ✅ Teraz zawiera godzinę!
-          status: airDate.isBefore(now) // ✅ Porównanie z pełnym DateTime
+          airDate: airDate,
+          status: airDate.isBefore(now)
               ? EpisodeStatus.aired
               : EpisodeStatus.upcoming,
         );
 
         await createEpisode(episode);
         successCount++;
+
+        // Debug co 10 odcinków
+        if (i % 10 == 0 || i == 1) {
+          debugPrint('📅 Odcinek $i: ${airDate.day}.${airDate.month}.${airDate.year} ${airDate.hour}:${airDate.minute.toString().padLeft(2, '0')}');
+        }
       } catch (e) {
-        debugPrint('Błąd przy tworzeniu odcinka $i: $e');
+        debugPrint('❌ Błąd przy tworzeniu odcinka $i: $e');
         skipCount++;
       }
     }
 
-    debugPrint('Wygenerowano $successCount odcinków dla eventu $eventId');
+    debugPrint('✅ Wygenerowano $successCount odcinków dla eventu $eventId');
     if (skipCount > 0) {
-      debugPrint('Pominięto $skipCount odcinków');
+      debugPrint('⚠️  Pominięto $skipCount odcinków');
     }
   }
 
@@ -178,9 +193,16 @@ class EpisodeLocalDataSource {
 
     for (var episode in episodes) {
       if (episode.episodeNumber >= fromEpisode) {
-        final updatedEpisode = episode.copyWith(
-          airDate: episode.airDate.add(Duration(days: intervalDays)),
+        // ✅ POPRAWKA: Używamy tej samej metody co w generateEpisodes
+        final newDate = DateTime(
+          episode.airDate.year,
+          episode.airDate.month,
+          episode.airDate.day + intervalDays,
+          episode.airDate.hour,
+          episode.airDate.minute,
         );
+
+        final updatedEpisode = episode.copyWith(airDate: newDate);
         await updateEpisode(EpisodeModel.fromEntity(updatedEpisode));
       }
     }
