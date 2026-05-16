@@ -6,10 +6,10 @@ Aplikacja mobilna do śledzenia cyklicznych wydarzeń medialnych: seriali, anime
 
 <!-- Wrzuć screeny do folderu screenshots/ i podmień ścieżki poniżej -->
 <p align="center">
-  <img src="screenshots/01_home.png" width="220" />
-  <img src="screenshots/02_details.png" width="220" />
-  <img src="screenshots/03_episodes.png" width="220" />
-  <img src="screenshots/04_settings.png" width="220" />
+  <img src="screenshots/01.png" width="220" />
+  <img src="screenshots/02.png" width="220" />
+  <img src="screenshots/03.png" width="220" />
+  <img src="screenshots/04.png" width="220" />
 </p>
 
 ## Funkcje
